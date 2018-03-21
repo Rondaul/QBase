@@ -8,6 +8,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
@@ -22,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     @InjectView(R.id.register_email) EditText mRegEmailEditText;
     @InjectView(R.id.register_password) EditText mRegPasswordEditText;
     @InjectView(R.id.btnRegister) Button mRegisterButton;
+    @InjectView(R.id.register_progress_bar) ProgressBar mRegisterProgressBar;
 
     //BackgroundTask input parameters
     String name;
@@ -65,7 +67,8 @@ public class RegisterActivity extends AppCompatActivity {
         if(!validate()) {
             registerFailed();
         } else {
-            BackgroundTask backgroundTask = new BackgroundTask(this);
+            //start Background AsyncTask if validate is successful
+            BackgroundTask backgroundTask = new BackgroundTask(this, mRegisterProgressBar);
             backgroundTask.execute(type, email, password, name);
         }
     }

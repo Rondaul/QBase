@@ -1,6 +1,8 @@
 package com.rontrix.android.q_base;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     @InjectView(R.id.login_email) EditText mLogEmailEditText;
     @InjectView(R.id.login_password) EditText mLogPassEditText;
     @InjectView(R.id.btnLogin) Button mLoginButton;
-    @InjectView(R.id.progressBar) ProgressBar mLoginProgressBar;
+    @InjectView(R.id.login_progress_bar) ProgressBar mLoginProgressBar;
 
     //Background Task input variables
     String email;
@@ -33,6 +35,22 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Get the boolean vlue from sharedPreferences key = "isLogin" and store it in
+        //a boolean variable.
+        SharedPreferences sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
+        boolean isLogin = sharedPreferences.getBoolean("isLogin", false);
+
+        /** Check whether user is login by using boolean value derived
+         * from sharedPreference key="isLogin".
+         * If isLogin is true, then immidiately start the QuestionSearchActivity and
+         * finish the LoginActivity.
+          */
+        if(isLogin) {
+            startActivity(new Intent(this, QuestionSearchActivity.class));
+            finish();
+        }
+
         setContentView(R.layout.activity_login);
 
         //Injecting views in this activity using Butterknife
@@ -66,7 +84,8 @@ public class LoginActivity extends AppCompatActivity {
         if(!validate()) {
             onLoginFailed();
         } else {
-                BackgroundTask backgroundTask = new BackgroundTask(this);
+                //start Background AsyncTask if validate is successful
+                BackgroundTask backgroundTask = new BackgroundTask(this, mLoginProgressBar);
                 backgroundTask.execute(type, email, password);
         }
     }

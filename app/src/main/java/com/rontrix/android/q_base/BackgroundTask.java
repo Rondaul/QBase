@@ -1,9 +1,13 @@
 package com.rontrix.android.q_base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -27,7 +31,7 @@ import java.util.Scanner;
 public class BackgroundTask extends AsyncTask<String, Void, JSONObject> {
 
     //String url for connecting to mysql database using php script.
-    private static final String STRING_URL = "http://192.168.43.198/WebDevWork/mysqlconnect/index.php";
+    private static final String STRING_URL = "http://192.168.0.103/WebDevWork/mysqlconnect/index.php";
 
     //instance variable to store the value passed from Activity
     private String email;
@@ -35,14 +39,18 @@ public class BackgroundTask extends AsyncTask<String, Void, JSONObject> {
     private String type;
     private String name;
     private Activity mActivity;
+    private ProgressBar mLoginProgressBar;
 
-    public BackgroundTask(Activity activity) {
+    public BackgroundTask(Activity activity, ProgressBar LoginProgressBar) {
                 mActivity = activity;
+                mLoginProgressBar = LoginProgressBar;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        mLoginProgressBar.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -145,6 +153,7 @@ public class BackgroundTask extends AsyncTask<String, Void, JSONObject> {
 
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
+        mLoginProgressBar.setVisibility(View.GONE);
         if(jsonObject != null) {
             try {
                 if(jsonObject.getString("success").equals("0")) {
@@ -157,6 +166,16 @@ public class BackgroundTask extends AsyncTask<String, Void, JSONObject> {
 
                         //If type is login, then start a new Activity using intent
                         if(type.equals("Login")) {
+
+                            /**Added SharedPreferences to store the information whether the user is Login or not.
+                            * If user is login, then a preference value is set with key="isLogin" and value="true"
+                             */
+                            SharedPreferences sharedPreferences = mActivity.getSharedPreferences("myPref", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putBoolean("isLogin", true);
+                            editor.apply();
+
+                            //If login is successful, go to QuestionSearchActivity
                             Intent intent = new Intent(this.mActivity, QuestionSearchActivity.class);
                             this.mActivity.startActivity(intent);
                         }
