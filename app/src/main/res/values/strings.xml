@@ -13,15 +13,24 @@
     <string name="btn_logout">LOGOUT</string>
     <string name="name">FullName</string>
     <string name="logout">Log Out</string>
+    <string name="search">Search</string>
 
+    <string name="title_activity_login">LoginActivity</string>
+
+    <string name="option_string">- Select your option -</string>
+
+    <!-- Departments list -->
     <string-array name="departments">
+        <item>--Select--</item>
         <item>BCA</item>
         <item>BBA</item>
         <item>BA</item>
-        <item>BHM</item>
+        <item>B. Com</item>
     </string-array>
 
+    <!-- Semester list -->
     <string-array name="semesters">
+        <item>--Select--</item>
         <item>1st Semester</item>
         <item>2nd Semester</item>
         <item>3rd Semester</item>
@@ -30,10 +39,80 @@
         <item>6th Semester</item>
     </string-array>
 
-    <string-array name="bca_subjects">
+    <!-- BCA 1st Semester subjects list-->
+    <string-array name="bca_first_sem">
+        <item>--Select--</item>
+        <item>English</item>
+        <item>Add. English</item>
         <item>C</item>
-        <item>C++</item>
-        <item>Java</item>
+        <item>Digital Electronics</item>
+        <item>Discrete Mathematics</item>
     </string-array>
-    <string name="title_activity_login">LoginActivity</string>
+
+    <!-- BCA 2nd Semester subjects list-->
+    <string-array name="bca_second_sem">
+        <item>--Select--</item>
+        <item>English</item>
+        <item>Add. English</item>
+        <item>Data Structures</item>
+        <item>DBMS</item>
+        <item>NSM</item>
+    </string-array>
+
+    <!-- BCA 3rd Semester subjects list-->
+    <string-array name="bca_third_sem">
+        <item>--Select--</item>
+        <item>English</item>
+        <item>Add. English</item>
+        <item>C++</item>
+        <item>FAM</item>
+        <item>OS</item>
+    </string-array>
+
+    <!-- BCA 4th Semester subjects list-->
+    <string-array name="bca_fourth_sem">
+        <item>--Select--</item>
+        <item>English</item>
+        <item>Add. English</item>
+        <item>Visual Programming</item>
+        <item>Unix</item>
+        <item>OR</item>
+    </string-array>
+
+    <!-- BCA 5th Semester subjects list-->
+    <string-array name="bca_fifth_sem">
+        <item>--Select--</item>
+        <item>DCN</item>
+        <item>Software Engineering</item>
+        <item>Computer Architecture</item>
+        <item>Java Programming</item>
+        <item>MAL</item>
+    </string-array>
+
+    <!-- BCA 6th Semester subjects list-->
+    <string-array name="bca_sixth_sem">
+        <item>--Select--</item>
+        <item>TOC</item>
+        <item>System Programming</item>
+        <item>CNS</item>
+        <item>Web Programming</item>
+    </string-array>
+
+    <!--year of the exam -->
+    <string-array name="year">
+        <item>--Select--</item>
+        <item>2017</item>
+        <item>2016</item>
+        <item>2015</item>
+        <item>2014</item>
+    </string-array>
+
+    <!--names of the exams in a year-->
+    <string-array name="exams">
+        <item>--Select--</item>
+        <item>1st Unit Test</item>
+        <item>2nd Unit Test</item>
+        <item>Pre-Final Exam</item>
+        <item>Final Exam</item>
+    </string-array>
 </resources>
