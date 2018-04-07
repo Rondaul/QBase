@@ -1,12 +1,14 @@
 package com.rontrix.android.q_base;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -116,33 +118,11 @@ public class QuestionsResultsActivity extends AppCompatActivity {
         }
 
         if(selectedId == R.id.action_share) {
-            //sharePDF();
+            sharePDF();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    /*private void sharePDF() {
-        File pdfFile = new File(Environment.getExternalStorageDirectory() + "/" + "MyPDFDocument" + "/" + "questions.pdf");
-        Uri path = Uri.fromFile(pdfFile);
-
-        //Create a String variable called mimeType and set it to "application/pdf"
-        String mimeType = "application/pdf";
-
-        // COMPLETED (3) Create a title for the chooser window that will pop up
-        String title = "Share Title";
-
-        // COMPLETED (4) Use ShareCompat.IntentBuilder to build the Intent and start the chooser
-        Intent intent = ShareCompat.IntentBuilder.from(this)
-                .setChooserTitle(title)
-                .setType(mimeType)
-                .setStream(path)
-                .getIntent();
-
-        if(intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
-
-    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -153,6 +133,33 @@ public class QuestionsResultsActivity extends AppCompatActivity {
             createPDF();
 
         }
+    }
+
+    private void sharePDF() {
+
+        String questions =  "";
+
+        for(Question question : mQuestions) {
+            questions += question.getQuestion() + "          " + question.getMarks() + "\n" ;
+        }
+
+        //Create a String variable called mimeType and set it to "application/pdf"
+        String mimeType = "text/plain";
+
+        // COMPLETED (3) Create a title for the chooser window that will pop up
+        String title = "Share Title";
+
+        // COMPLETED (4) Use ShareCompat.IntentBuilder to build the Intent and start the chooser
+        Intent intent = ShareCompat.IntentBuilder.from(this)
+                .setChooserTitle(title)
+                .setType(mimeType)
+                .setText(questions)
+                .getIntent();
+
+        if(intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+
     }
 
     public void createPDF() {
@@ -198,10 +205,8 @@ public class QuestionsResultsActivity extends AppCompatActivity {
                 paragraph.setFont(new Font(Font.FontFamily.COURIER));
                 document.add(paragraph);
                 Toast.makeText(this, "Saved to PDF", Toast.LENGTH_LONG).show();
-                // close the document
 
-                stringBuilder = null;
-                questionString = "";
+                // close the document
                 document.close();
 
             } catch (DocumentException e) {

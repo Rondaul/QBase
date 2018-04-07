@@ -22,7 +22,7 @@ import java.util.Scanner;
 public class FetchQuestionsBackgroundTask extends AsyncTask<Integer, Void, String> {
 
     //String url for connecting to mysql database using php script.
-    private static final String STRING_URL = "http://192.168.0.100/WebDevWork/mysqlconnect/qbaseoperations/q-base-operation.php";
+    private static final String STRING_URL = "http://192.168.0.6/WebDevWork/mysqlconnect/qbaseoperations/q-base-operation.php";
 
     private static final String ENCODING_SCHEME = "UTF-8";
 

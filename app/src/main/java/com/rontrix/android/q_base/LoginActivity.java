@@ -36,18 +36,30 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Get the boolean vlue from sharedPreferences key = "isLogin" and store it in
+        //Get the boolean value from sharedPreferences key = "isLogin" and key = "isAdmin" and store it in
         //a boolean variable.
         SharedPreferences sharedPreferences = getSharedPreferences("myPref", Context.MODE_PRIVATE);
         boolean isLogin = sharedPreferences.getBoolean("isLogin", false);
+        boolean isAdmin = sharedPreferences.getBoolean("isAdmin" , false);
 
         /** Check whether user is login by using boolean value derived
          * from sharedPreference key="isLogin".
          * If isLogin is true, then immidiately start the QuestionSearchActivity and
          * finish the LoginActivity.
           */
+        //Prepare intent to go to to either AdminActivity or QuestionSearchActivity based on the
+        // isLogin and isAdmin status
+
+        Intent intent;
         if(isLogin) {
-            startActivity(new Intent(this, QuestionSearchActivity.class));
+            if (isAdmin) {
+                //if isLogin = true and isAdmin = true, go to AdminActivity
+                intent = new Intent(this, AdminActivity.class);
+            } else {
+                //if isLogin = true and isAdmin = false, go to QuestionSearchActivity
+                intent = new Intent(this, QuestionSearchActivity.class);
+            }
+            startActivity(intent);
             finish();
         }
 

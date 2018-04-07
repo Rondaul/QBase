@@ -157,12 +157,17 @@ public class BackgroundTask extends AsyncTask<String, Void, JSONObject> {
         if(jsonObject != null) {
             try {
                 if(jsonObject.getString("success").equals("0")) {
-                    //if operation is unsuccessfull, show a toast message that operation is failed.
-                    Toast.makeText(mActivity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        //if operation is unsuccessfull, show a toast message that operation is failed.
+                        Toast.makeText(mActivity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                 } else {
                     if(jsonObject.getString("success").equals("1")) {
-                        //If operation is successful, show a toast message that operation is successful.
-                        Toast.makeText(mActivity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        //if operation is successful and user is admin show a toast message for admin
+                        if(jsonObject.getString("user").equals("admin")) {
+                            Toast.makeText(mActivity, "Welcome admin!" , Toast.LENGTH_SHORT).show();
+                        } else {
+                            //If operation is successful and user is others, show a toast message that operation is successful.
+                            Toast.makeText(mActivity, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
 
                         //If type is login, then start a new Activity using intent
                         if(type.equals("Login")) {
@@ -173,10 +178,26 @@ public class BackgroundTask extends AsyncTask<String, Void, JSONObject> {
                             SharedPreferences sharedPreferences = mActivity.getSharedPreferences("myPref", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putBoolean("isLogin", true);
+
+                            //if user is admin, set isAdmin to true
+                            if(jsonObject.getString("user").equals("admin")) {
+                                editor.putBoolean("isAdmin" , true);
+                            } else {
+                                //else if user is others, set isAdmin to false
+                                editor.putBoolean("isAdmin" , false);
+                            }
                             editor.apply();
 
-                            //If login is successful, go to QuestionSearchActivity
-                            Intent intent = new Intent(this.mActivity, QuestionSearchActivity.class);
+                            Intent intent;
+
+                            if(jsonObject.getString("user").equals("admin")) {
+                                //If login is successful and user is admin, go to AdminActivity
+                                intent = new Intent(this.mActivity, AdminActivity.class);
+                            } else {
+
+                                //If login is successful and user is others, go to QuestionSearchActivity
+                                intent = new Intent(this.mActivity, QuestionSearchActivity.class);
+                            }
                             this.mActivity.startActivity(intent);
                         }
                         //Else if type is register, then just finish the RegisterActivity and go back to
