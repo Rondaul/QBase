@@ -19,6 +19,8 @@
 
     <string name="option_string">- Select your option -</string>
 
+    <string name="add_question">ADD</string>
+
     <!-- Departments list -->
     <string-array name="departments">
         <item>--Select--</item>

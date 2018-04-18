@@ -27,7 +27,11 @@
             android:name=".RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".QuestionsResultsActivity">
+        <activity android:name=".QuestionsResultsActivity"
+            android:parentActivityName=".QuestionSearchActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".QuestionSearchActivity"/>
         </activity>
         <activity android:name=".AdminActivity">
         </activity>

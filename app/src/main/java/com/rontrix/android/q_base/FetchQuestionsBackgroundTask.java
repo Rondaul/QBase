@@ -15,14 +15,11 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Scanner;
 
-/**
- * Created by Ron on 4/4/2018.
- */
-
 public class FetchQuestionsBackgroundTask extends AsyncTask<Integer, Void, String> {
 
     //String url for connecting to mysql database using php script.
-    private static final String STRING_URL = "http://192.168.0.6/WebDevWork/mysqlconnect/qbaseoperations/q-base-operation.php";
+    //private static final String STRING_URL = "http://192.168.43.198/WebDevWork/mysqlconnect/qbaseoperations/q-base-operation.php";
+    private static final String STRING_URL = "https://c4code.000webhostapp.com/mysqlconnect/qbaseoperations/q-base-operation.php";
 
     private static final String ENCODING_SCHEME = "UTF-8";
 

@@ -31,7 +31,8 @@ import java.util.Scanner;
 public class BackgroundTask extends AsyncTask<String, Void, JSONObject> {
 
     //String url for connecting to mysql database using php script.
-    private static final String STRING_URL = "http://192.168.43.198/WebDevWork/mysqlconnect/index.php";
+    //private static final String STRING_URL = "http://192.168.43.198/WebDevWork/mysqlconnect/index.php";
+    private static final String STRING_URL = "https://c4code.000webhostapp.com/mysqlconnect/index.php";
 
     //instance variable to store the value passed from Activity
     private String email;
